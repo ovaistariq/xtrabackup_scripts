@@ -1,0 +1,22 @@
+## Configuration options
+mysql_user=some_user
+mysql_password=some_pass
+
+mail_from="xtrabackup@$(hostname -f)"
+mail_recipients="ovaistariq@gmail.com"
+
+num_encryption_threads=4
+num_decryption_threads=4
+
+# This file is checked to see which backup directories need verification
+verification_status_check_filename=".needs_verification_test"
+
+# Backup destination
+backup_root=/data/backups/$(hostname -f)
+
+# Backup log destination
+backup_log_root=${backup_root}/logs
+
+# Backup retention
+backup_retention_days=1
+
