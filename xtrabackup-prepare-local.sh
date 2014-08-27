@@ -267,9 +267,9 @@ function prepare_incremental_backup() {
 # Find out the type of backup, i.e. is it incremental or full
 if [[ $backup_dir_to_prepare == *incremental* ]]
 then
-    prepare_incremental_backup
+    prepare_incremental_backup | tee -a $tmp_log
 else
-    prepare_full_backup
+    prepare_full_backup | tee -a $tmp_log
 fi
 
 # If backup preparation fails we delete the contents of the directory where

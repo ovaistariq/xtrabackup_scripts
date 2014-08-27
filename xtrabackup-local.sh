@@ -135,9 +135,9 @@ acquire_lock
 # Do the actual backup stuff
 if [[ $is_full_backup ]]
 then
-    do_full_backup
+    do_full_backup | tee -a $tmp_log
 else
-    do_incremental_backup
+    do_incremental_backup | tee -a $tmp_log
 fi
 
 # If backup fails we delete the failed backup archive and exit here
