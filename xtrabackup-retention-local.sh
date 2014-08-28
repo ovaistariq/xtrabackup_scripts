@@ -30,7 +30,7 @@ RET_DELETION_SUCCESS=0
 source ${backup_script_root}/functions.sh
 
 vlog "-- Starting to delete backups older than $backup_retention_days days"
-find_cmd="find $backup_root -name xtrabackup_checkpoints -type f -mtime ${backup_retention_days} -daystart"
+find_cmd="find $backup_root -name xtrabackup_checkpoints -type f -mtime +${backup_retention_days} -daystart"
 for path in $($find_cmd)
 do
     dir_name=$(dirname $path)
