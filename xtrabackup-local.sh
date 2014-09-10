@@ -67,7 +67,7 @@ function do_full_backup() {
     mkdir -p $backup_full_dir
     
     vlog "-- BACKING up to $backup_archive"
-    backup_params="--user=$mysql_user --password=$mysql_password --slave-info --stream=xbstream $backup_full_dir --extra-lsndir=${backup_full_dir}"
+    backup_params="--user=$mysql_user --password=$mysql_password --slave-info --stream=xbstream $backup_full_dir --extra-lsndir=${backup_full_dir} --parallel=${num_backup_threads}"
 
     local status=0
     $innobackupex_cmd $backup_params 2> $backup_log | $qpress_cmd -T${num_encryption_threads}io $backup_archive > $backup_archive
@@ -93,7 +93,7 @@ function do_incremental_backup() {
     lsn_last_backup=$(grep to_lsn $latest_backup_checkpoint_file | awk -F'=' '{printf "%d", $2}')
 
     vlog "-- BACKING up to $backup_archive"
-    backup_params="--user=$mysql_user --password=$mysql_password --incremental --incremental-lsn=${lsn_last_backup} --slave-info --stream=xbstream $backup_incremental_dir --extra-lsndir=${backup_incremental_dir}"
+    backup_params="--user=$mysql_user --password=$mysql_password --incremental --incremental-lsn=${lsn_last_backup} --slave-info --stream=xbstream $backup_incremental_dir --extra-lsndir=${backup_incremental_dir} --parallel=${num_backup_threads}"
     local status=0
     $innobackupex_cmd $backup_params 2> $backup_log | $qpress_cmd -T${num_encryption_threads}io $backup_archive > $backup_archive
 

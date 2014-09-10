@@ -5,6 +5,7 @@ mysql_password=some_pass
 mail_from="xtrabackup@$(hostname -f)"
 mail_recipients="ovaistariq@gmail.com"
 
+num_backup_threads=4
 num_encryption_threads=4
 num_decryption_threads=4
 
